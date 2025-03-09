@@ -1,6 +1,7 @@
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Header() {
   // Lấy thông tin người dùng từ Redux store
@@ -18,19 +19,29 @@ export default function Header() {
     greeting = 'Chào buổi tối 🌃';
   }
 
+  const handleNotificationPress = () => {
+    console.log('Đã nhấn vào biểu tượng thông báo');
+  };
+
   return (
-    <View className='mx-3 mt-3'>
-      <View className="flex-row items-center space-x-3">
-        <Image
-          source={{ uri: user.avatar }}
-          className="w-12 h-12 rounded-full mr-3"
-        />
-        <View>
-          <Text className="text-xl font-medium">{greeting}</Text>
-          <Text className="text-3xl font-semibold">{user.name}</Text>
+    <View className="mx-3 mt-3 flex-row items-center justify-between">
+      <View>
+        <View className="flex-row items-center mb-1">
+          <Image
+            source={{ uri: user.avatar }}
+            className="w-12 h-12 rounded-full mr-3"
+          />
+          <View>
+            <Text className="text-xl font-medium">{greeting}</Text>
+            <Text className="text-3xl font-semibold">{user.name}</Text>
+          </View>
         </View>
+        <Text className="text-lg text-gray-500">Tôi sẽ là hoa tiêu của bạn 😉</Text>
       </View>
-      <Text className="text-lg text-gray-500">Tôi sẽ là hoa tiêu của bạn 😉</Text>
+
+      <TouchableOpacity onPress={handleNotificationPress}>
+        <Ionicons name="notifications-outline" size={32} color="#317adc" />
+      </TouchableOpacity>
     </View>
   );
 }

@@ -60,7 +60,7 @@ export default function DetailScreen() {
               <Text className="text-lg font-normal text-gray-500"> VNĐ</Text>
             </Text>
           </View>
-          
+
           <View className="flex-row items-center mb-2">
             <View className="rounded-lg p-2 items-center justify-center bg-[#9fc43a]">
               <Text className="text-white font-bold text-base">{tour.score ?? 'N/A'}</Text>
@@ -133,6 +133,23 @@ export default function DetailScreen() {
             ) : (
               <Text className="text-base mb-2">Không có thông tin tổng quan</Text>
             )}
+          </View>
+          <View className="mt-4 mb-8">
+            <Text className="text-lg font-semibold mb-2">Liên hệ trực tiếp để trao đổi:</Text>
+
+            <View className="flex-row items-center bg-gray-100 p-3 rounded-lg mb-2">
+              <Ionicons name="call-outline" size={20} color="#317adc" className="mr-2" />
+              <Text className="text-base text-gray-700">
+                <Text className="font-semibold">Số điện thoại:</Text> {tour?.contactPhone || '0815 555 555'}
+              </Text>
+            </View>
+
+            <View className="flex-row items-center bg-gray-100 p-3 rounded-lg">
+              <Ionicons name="mail-outline" size={20} color="#317adc" className="mr-2" />
+              <Text className="text-base text-gray-700">
+                <Text className="font-semibold">Email:</Text> {tour?.contactEmail || 'lequocanh0101@gmail.com'}
+              </Text>
+            </View>
           </View>
         </ScrollView>
 
