@@ -1,4 +1,3 @@
-// src/screens/BodyScreen.tsx
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import TourList from '../../components/tourList';
