@@ -7,6 +7,9 @@ interface UserState {
   name: string;
   token: string;
   avatar: string;
+  phone: string;
+  address: string;
+  birthday: string;
 }
 
 const initialState: UserState = {
@@ -15,6 +18,9 @@ const initialState: UserState = {
   name: '',
   token: '',
   avatar: '',
+  phone: '',
+  address: '',
+  birthday: '',
 };
 
 const userSlice = createSlice({

@@ -37,6 +37,9 @@ export default function RootLayout() {
           <Stack.Screen name="auth/authenticateOTP" />
           <Stack.Screen name="tabs" />
           <Stack.Screen name="home/detailScreen" />
+          <Stack.Screen name="payment" />
+          <Stack.Screen name="payment/webview" />
+          <Stack.Screen name="order" />
         </Stack>
         <StatusBar style="dark" />
       </ThemeProvider>

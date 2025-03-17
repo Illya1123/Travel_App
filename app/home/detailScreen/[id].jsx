@@ -4,10 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useLocalSearchParams } from 'expo-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons'
+import { useRouter } from 'expo-router';
 
 const { height: screenHeight } = Dimensions.get('window')
 
 export default function DetailScreen() {
+  const router = useRouter();
   const { id } = useLocalSearchParams()
   const dispatch = useDispatch()
   const tours = useSelector(state => state.tour.tours)
@@ -153,7 +155,7 @@ export default function DetailScreen() {
           </View>
         </ScrollView>
 
-        <View className="absolute bottom-4 left-4 right-4 flex-row justify-between items-center pointer-events-none">
+        <View className="absolute bottom-4 left-4 right-4 flex-row justify-between items-center">
           <TouchableOpacity
             onPress={handleFavoriteToggle}
             className="bg-white p-3 rounded-full shadow-md pointer-events-auto"
@@ -162,11 +164,15 @@ export default function DetailScreen() {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={handleBookingRequest}
+            onPress={() => {
+              console.log("Nút thanh toán được bấm");
+              router.push(`/payment/${tour._id}`);
+            }}
             className="bg-[#317adc] flex-1 ml-4 py-3 rounded-lg pointer-events-auto"
           >
             <Text className="text-white text-center text-2xl font-bold">Yêu cầu đặt</Text>
           </TouchableOpacity>
+
         </View>
       </View>
     </SafeAreaView>

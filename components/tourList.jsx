@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, TextInput } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
@@ -8,6 +8,7 @@ import Slider from '@react-native-community/slider';
 export default function TourList() {
   const tours = useSelector((state) => state.tour.tours);
   const [filteredTours, setFilteredTours] = useState(tours);
+  const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('Tất cả');
   const [sortType, setSortType] = useState('Mặc định');
   const [showFilterOptions, setShowFilterOptions] = useState(false);
@@ -19,17 +20,27 @@ export default function TourList() {
 
   useEffect(() => {
     applyFilterAndSort();
-  }, [tours, filterType, sortType, price]);
+  }, [tours, filterType, sortType, price, searchQuery]);
 
   const applyFilterAndSort = () => {
     let updatedTours = tours;
 
+    // Lọc theo loại tour
     if (filterType !== 'Tất cả') {
       updatedTours = updatedTours.filter((tour) => tour.type === filterType);
     }
 
+    // Lọc theo giá
     updatedTours = updatedTours.filter((tour) => (tour.price || 0) <= price);
 
+    // Lọc theo từ khóa tìm kiếm
+    if (searchQuery.trim() !== '') {
+      updatedTours = updatedTours.filter((tour) =>
+        tour.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Sắp xếp theo giá
     if (sortType === 'Giá tăng dần') {
       updatedTours.sort((a, b) => (a.price || 0) - (b.price || 0));
     } else if (sortType === 'Giá giảm dần') {
@@ -63,6 +74,16 @@ export default function TourList() {
 
   return (
     <View className="flex-1 bg-gray-100 p-4">
+      <View className="flex-row items-center bg-white p-3 rounded-lg shadow mb-4">
+        <Ionicons name="search" size={20} color="gray" />
+        <TextInput
+          placeholder="Tìm kiếm tour..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          className="flex-1 ml-2 text-lg"
+        />
+      </View>
+
       <View className="flex-row items-center justify-between mb-4">
         <Text className="text-2xl font-bold">Danh sách tour</Text>
         <TouchableOpacity

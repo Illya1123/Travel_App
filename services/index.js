@@ -1,4 +1,5 @@
 import axios from "axios";
+// import { API_BASE_URL } from '@env';
 
 const API_BASE_URL = `http://192.168.31.228:3000`;
 
@@ -75,3 +76,66 @@ export const deleteTour = async (id, token) => {
   }
 };
 
+export const forgotPassword = async (email) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/api/user/forgotPasswordWithOtp`, {
+      params: { email },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Lỗi khi quên mật khẩu:', error.response?.data || error.message);
+    throw error;
+  }
+}
+
+export const resetPasswordWithOTP = async (data) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/api/user/resetPasswordWithOtp`, data);
+    return response.data;
+  } catch (error) {
+    console.error('Lỗi khi đặt lại mật khẩu:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const requestMoMoPayment = async (orderData) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/api/payment-momo/momo`, orderData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Lỗi khi gửi yêu cầu thanh toán MoMo:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const updateInfoContactUser = async (data, token) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/api/user/updateInfoContactUser`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  }
+  catch (error) {
+    console.error('Lỗi khi cập nhật thông tin người dùng:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const getTourOrderByUserId = async (userId) => {
+  try {
+    if (!userId) return [];
+    const response = await axios.get(`${API_BASE_URL}/api/tour-order/user/${userId}`);
+    return response.data.orders;
+  } 
+  catch (error) {
+    console.error('Lỗi khi lấy đơn đặt tour:', error);
+    return [];
+  }
+};

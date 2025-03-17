@@ -12,3 +12,8 @@ export const isValidPassword = (password) => {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   return passwordRegex.test(password);
 };
+
+export const isValidPhoneNumber = (phone) => {
+  const regex = /^(0[3|5|7|8|9])([0-9]{8})$/;
+  return regex.test(phone);
+};

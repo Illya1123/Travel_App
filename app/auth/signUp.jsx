@@ -119,6 +119,16 @@ export default function SignUp() {
             Đăng nhập
           </Text>
         </Text>
+
+        <Text className="text-center">
+          Bạn quên mật khẩu?{' '}
+          <Text
+            className="text-blue-500 font-semibold"
+            onPress={() => router.push('/auth/forgotPassword')}
+          >
+            Đặt lại mật khẩu
+          </Text>
+        </Text>
       </View>
 
       <CustomToast />
